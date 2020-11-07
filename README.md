@@ -1,6 +1,6 @@
 ## Booknot
 
-[![Build Status](https://travis-ci.org/FabienArcellier/blueprint-cli-multicommands-python.svg?branch=master)](https://travis-ci.org/FabienArcellier/blueprint-cli-multicommands-python)
+![continuous_integration](https://github.com/FabienArcellier/booknot/workflows/continuous_integration/badge.svg)
 
 **This tool does not work yet**.
 
