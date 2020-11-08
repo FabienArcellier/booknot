@@ -5,25 +5,21 @@ import unittest
 import os
 from click.testing import CliRunner
 from booknot.cli import cli
-from booknot_tests.acceptances.fixtures import clone_fixture
+from booknot_tests.fixtures import clone_fixture
 
 
 class MainTest(unittest.TestCase):
     def setUp(self):
         pass
 
-    def test_main_exit_with_1_as_error_code_if_action_fails(self):
-        # Assign
-        runner = CliRunner()
+    def test_init_should_create_dot_booknote_directory(self):
+        with clone_fixture('empty_directory') as directory:
+            # Assign
+            runner = CliRunner()
 
-        # Acts
-        result = runner.invoke(cli, ['command1', '--name', 'fabien'])
+            # Acts
+            os.chdir(directory)
+            result = runner.invoke(cli, ['init'])
 
-        # Assert
-        self.assertEqual(result.exit_code, 0)
-        self.assertEqual('hello fabien\n', result.output)
-
-    def test_scenario1_contains_file_txt(self):
-        with clone_fixture(fixture_name='scenario1') as wd:
-            file_txt_path = os.path.join(wd, 'file.txt')
-            self.assertTrue(os.path.isfile(file_txt_path))
+            # Assert
+            self.assertTrue(os.path.isdir(os.path.join(directory, '.booknot')))

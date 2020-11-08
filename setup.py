@@ -10,14 +10,20 @@ setup(
     license='MIT license',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
+    include_package_data=True,
+    package_data={
+        'configuration': ['booknot/resources/*'],
+    },
     entry_points = {
         'console_scripts': [
             'booknot = booknot.cli:cli',
         ],
     },
     install_requires = [
+        'beautifulsoup4',
         'click',
-        'decorator'
+        'decorator',
+        'requests'
     ],
     extras_require={
         'dev': [
