@@ -37,6 +37,7 @@ class InitApplication:
                 click.echo("to render the documentation, use make html")
                 click.echo("to open the render, use open _build/html/index.html")
                 self.booknot_storage.init_store()
+                click.echo("you can use : booknot capture https://...")
         else:
             self.booknot_storage.init_store()
             click.echo("you can use : booknot capture https://...")
