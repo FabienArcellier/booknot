@@ -20,9 +20,11 @@ setup(
         ],
     },
     install_requires = [
+        'attrs',
         'beautifulsoup4',
         'click',
         'decorator',
+        'jinja2',
         'requests'
     ],
     extras_require={

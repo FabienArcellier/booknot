@@ -20,8 +20,8 @@ class InitApplication:
         try:
             if not os.path.isdir(booknot_directory):
                 shutil.copytree(os.path.join(RESOURCES_DIR, 'booknot_root'), os.path.join(self.directory, '.booknot'))
-        except Exception:
+        except Exception as exception:
             if os.path.isdir(booknot_directory):
                 shutil.rmtree(booknot_directory)
 
-
+            raise click.ClickException(f'invalid exception - {exception}')

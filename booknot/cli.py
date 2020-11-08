@@ -9,7 +9,9 @@ import click
 import requests
 from bs4 import BeautifulSoup
 
-from booknot.application.init import InitApplication
+from booknot.application.init_application import InitApplication
+from booknot.application.capture_application import CaptureApplication
+from booknot.crawler.http_crawler import HttpCrawler
 
 
 @click.group()
@@ -19,27 +21,21 @@ def cli():
 
 @click.command('init')
 def init():
-    # init booknot root
     workdir = os.getcwd()
     init_application = InitApplication(workdir)
+
+    # init booknot root
     init_application.run()
 
 
 @click.command('capture')
 @click.argument('url')
 def capture(url):
-    # check booknot root
-    # fetch meta information with request & beautiful soup
-    # write the directory
-
-    r = requests.get(url)
-    content = r.content
-    soup = BeautifulSoup(content, 'html.parser')
-    title = soup.head.title.string
-    description = soup.head.find('meta', property="og:description")["content"]
-
-    print(title)
-    print(description)
+    workdir = os.getcwd()
+    session = requests.Session()
+    crawler = HttpCrawler(session)
+    capture_application = CaptureApplication(crawler, workdir, url)
+    capture_application.run()
 
 
 cli.add_command(init)
