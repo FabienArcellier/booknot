@@ -1,3 +1,4 @@
+# pylint: disable=line-too-long
 import click
 import inquirer
 
@@ -16,7 +17,7 @@ class InitApplication:
         if not self.booknot_storage.is_sphinx_present():
             questions = [
                 inquirer.Confirm('init sphinx',
-                                 message='This will create a workspace for sphinx, do you want to continue ?',
+                                 message='This will bootstrap a workspace for sphinx in this directory, do you want to continue ?',
                                  default=False),
             ]
 
@@ -24,7 +25,7 @@ class InitApplication:
             if answers['init sphinx']:
                 questions = [
                     inquirer.Text('project',
-                                     message='What the name of the project of this booknot',
+                                     message='What the name of this booknot',
                                      default='Booknot'),
                     inquirer.Text('author',
                                      message='What the name of the author',
@@ -34,10 +35,10 @@ class InitApplication:
                 answers = inquirer.prompt(questions)
                 self.booknot_storage.create_sphinx(answers['project'], answers['author'])
 
-                click.echo("to render the documentation, use make html")
-                click.echo("to open the render, use open _build/html/index.html")
+                click.echo(click.style("1. to render the booknot, use : make html", fg='yellow'))
+                click.echo(click.style("2. to open the booknot after rendering, use a browser and open _build/html/index.html", fg='yellow'))
                 self.booknot_storage.init_store()
-                click.echo("you can use : booknot capture https://...")
+                click.echo(click.style("3. to bookmark a page, use : booknot capture https://...", fg='yellow'))
         else:
             self.booknot_storage.init_store()
-            click.echo("you can use : booknot capture https://...")
+            click.echo(click.style("1. to bookmark a page, use : booknot capture https://...", fg='yellow'))

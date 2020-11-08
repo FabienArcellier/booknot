@@ -13,17 +13,38 @@ pip install booknot
 
 ## Usage
 
-1. start your booknot project in an empty directory or in an existing sphinx workspace
+You should start from one of this configuration :
 
-```bash
-booknot init
+* start from scratch
+* start from existing sphinx workspace
+
+### start from scratch
+
+1 . start your booknot project in an empty directory
+
+``booknot init`` will propose you to create a sphinx workspace.
+
+```text
+$ booknot init
+[?] This will bootstrap a workspace for sphinx in this directory, do you want to continue ? (y/N): y
+
+[?] What the name of this booknot: Booknot
+[?] What the name of the author: me
+
+1. to render the booknot, use : make html
+2. to open the booknot after rendering, use a browser and open _build/html/index.html
+3. to bookmark a page, use : booknot capture https://...
 ```
 
-1. capture an existing page
+2 . capture an existing page
 
 ```bash
 booknot capture https://www.youtube.com/watch?v=q9T4tl1tmAY
 ```
+
+### start from existing sphinx workspace
+
+same workflow exception, booknot won't proposed to create a sphinx workspace.
 
 ## The latest version
 

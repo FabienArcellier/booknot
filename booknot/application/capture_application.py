@@ -20,7 +20,7 @@ class CaptureApplication:
         template_booknot_path = os.path.join(self.directory, '.booknot', 'index.rst.j2')
 
         if not os.path.isdir(booknot_path):
-            raise click.ClickException(f'you have to initialise booknot repository wiht booknot init :  {booknot_path}')
+            raise click.ClickException(f'you have to initialize a booknot with booknot init :  {booknot_path}')
 
         if not os.path.isfile(template_booknot_path):
             raise click.ClickException(f'template for booknot does not exists {template_booknot_path}')
