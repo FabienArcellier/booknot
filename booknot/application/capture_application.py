@@ -3,6 +3,7 @@ import json
 import os
 
 import click
+from jinja2 import Template
 
 from booknot.crawler.crawler import Crawler
 
@@ -28,5 +29,13 @@ class CaptureApplication:
 
         booknot_note_path = os.path.join(self.directory, metadata.sanitize_dir())
         os.makedirs(booknot_note_path)
+        os.makedirs(os.path.join(booknot_note_path, 'static'))
         with io.open(os.path.join(booknot_note_path, 'manifest.json'), 'w') as filep:
             json.dump(metadata.tomanifest(), filep, indent=4)
+
+        with io.open(template_booknot_path) as filep:
+            template_index = filep.read()
+            template = Template(template_index)
+            template_render = template.render(metadata.tocapture())
+            with io.open(os.path.join(booknot_note_path, 'index.rst'), 'w') as filep:
+                filep.write(template_render)

@@ -17,7 +17,7 @@ class TestCatpureApplication(unittest.TestCase):
         with clone_fixture('empty_booknot') as directory:
             # Assign
             self._tested.directory = directory
-            self.crawler_mock.fetch = Mock(return_value=Metadata(url="", title="my title", description="", date=datetime(2020, 1, 1)))
+            self.crawler_mock.fetch = Mock(return_value=Metadata(url="", title="my title", description="", capture_date=datetime(2020, 1, 1)))
 
             # Acts
             result = self._tested.run()
@@ -31,7 +31,7 @@ class TestCatpureApplication(unittest.TestCase):
         with clone_fixture('empty_booknot') as directory:
             # Assign
             self._tested.directory = directory
-            self.crawler_mock.fetch = Mock(return_value=Metadata(url="", title="my title", description="", date=datetime(2020, 1, 1)))
+            self.crawler_mock.fetch = Mock(return_value=Metadata(url="", title="my title", description="", capture_date=datetime(2020, 1, 1)))
 
             # Acts
             result = self._tested.run()
@@ -40,6 +40,20 @@ class TestCatpureApplication(unittest.TestCase):
             note_manifest = os.path.join(directory, '20200101__my_title', 'manifest.json')
 
             self.assertTrue(os.path.isfile(note_manifest), f'note manifest does not exists in {note_manifest}')
+
+    def test_run_should_create_the_index_of_the_note(self):
+        with clone_fixture('empty_booknot') as directory:
+            # Assign
+            self._tested.directory = directory
+            self.crawler_mock.fetch = Mock(return_value=Metadata(url="", title="my title", description="", capture_date=datetime(2020, 1, 1)))
+
+            # Acts
+            result = self._tested.run()
+
+            # Assert
+            note_index = os.path.join(directory, '20200101__my_title', 'index.rst')
+
+            self.assertTrue(os.path.isfile(note_index), f'note manifest does not exists in {note_index}')
 
 if __name__ == '__main__':
     unittest.main()

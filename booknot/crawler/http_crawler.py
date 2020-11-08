@@ -20,4 +20,4 @@ class HttpCrawler(Crawler):
         description = soup.head.find('meta', property="og:description")["content"]
         now = datetime.now()
 
-        return Metadata(url=url, title=title, description=description, date=now)
+        return Metadata(url=url, title=title, description=description, capture_date=now)
