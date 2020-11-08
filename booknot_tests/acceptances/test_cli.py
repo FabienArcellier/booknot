@@ -23,3 +23,16 @@ class MainTest(unittest.TestCase):
 
             # Assert
             self.assertTrue(os.path.isdir(os.path.join(directory, '.booknot')))
+
+    def test_init_should_populate_dot_booknote_directory(self):
+        with clone_fixture('empty_directory') as directory:
+            # Assign
+            runner = CliRunner()
+
+            # Acts
+            os.chdir(directory)
+            result = runner.invoke(cli, ['init'])
+
+            # Assert
+            self.assertTrue(os.path.isdir(os.path.join(directory, '.booknot')))
+            self.assertTrue(os.path.isfile(os.path.join(directory, '.booknot', 'index.rst.j2')))
