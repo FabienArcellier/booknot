@@ -5,14 +5,14 @@ from setuptools import find_packages
 
 setup(
     name='booknot',
-    version='0.0.2',
+    version='0.0.4',
     packages=find_packages(exclude=["*_tests"]),
     license='MIT license',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
     include_package_data=True,
     package_data={
-        'configuration': ['booknot/resources/*'],
+        'configuration': ['booknot/resources/*', 'booknot/resources/booknot_root/*'],
     },
     entry_points = {
         'console_scripts': [
