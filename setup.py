@@ -5,7 +5,7 @@ from setuptools import find_packages
 
 setup(
     name='booknot',
-    version='0.0.1',
+    version='0.0.2',
     packages=find_packages(exclude=["*_tests"]),
     license='MIT license',
     long_description=open('README.md').read(),

@@ -2,8 +2,6 @@
 
 ![continuous_integration](https://github.com/FabienArcellier/booknot/workflows/continuous_integration/badge.svg)
 
-**This tool does not work yet**.
-
 Booknot helps you to take note about a webpage, a video on youtube or a pdf on the internet. It will create
 a ready to use space to write note and reflexion using ``sphinx`` engine.
 
@@ -15,7 +13,7 @@ pip install booknot
 
 ## Usage
 
-1. start your booknot project
+1. start your booknot project in an empty directory or in an existing sphinx workspace
 
 ```bash
 booknot init
