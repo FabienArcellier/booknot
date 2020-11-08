@@ -44,7 +44,22 @@ booknot capture https://www.youtube.com/watch?v=q9T4tl1tmAY
 
 ### start from existing sphinx workspace
 
-same workflow exception, booknot won't proposed to create a sphinx workspace.
+same workflow except booknot won't proposed to create a sphinx workspace. This pattern
+allow to have more than one booknote by sphinx workspace.
+
+```bash
+# create a sphinx workspace by hand
+sphinx-quickstart -p multibooknot -a me .
+
+mkdir topic1
+cd topic1
+booknot init
+
+cd ..
+mkdir topic2
+cd topic2
+booknot init
+```
 
 ## The latest version
 
