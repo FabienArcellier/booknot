@@ -11,6 +11,7 @@ from bs4 import BeautifulSoup
 
 from booknot.application.init_application import InitApplication
 from booknot.application.capture_application import CaptureApplication
+from booknot.booknot_storage.local_booknot_storage import LocalBooknotStorage
 from booknot.crawler.http_crawler import HttpCrawler
 
 
@@ -22,7 +23,8 @@ def cli():
 @click.command('init')
 def init():
     workdir = os.getcwd()
-    init_application = InitApplication(workdir)
+    booknot_storage = LocalBooknotStorage(workdir)
+    init_application = InitApplication(booknot_storage)
 
     # init booknot root
     init_application.run()

@@ -24,8 +24,11 @@ setup(
         'beautifulsoup4',
         'click',
         'decorator',
+        'inquirer',
         'jinja2',
-        'requests'
+        'plumbum',
+        'requests',
+        'sphinx'
     ],
     extras_require={
         'dev': [

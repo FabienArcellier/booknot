@@ -1,32 +1,42 @@
-import os
-import shutil
-
 import click
+import inquirer
 
-from booknot.resources import RESOURCES_DIR
-
+from booknot.booknot_storage.booknot_storage import BooknotStorage
 
 class InitApplication:
 
-    def __init__(self, directory):
-        self.directory = os.path.realpath(directory)
+    def __init__(self, booknot_storage: BooknotStorage):
+        self.booknot_storage = booknot_storage
 
     def run(self):
-        booknot_directory = os.path.join(self.directory, ".booknot")
 
-        if os.path.isdir(booknot_directory):
-            raise click.ClickException(f'booknot already exists: {booknot_directory}')
+        if self.booknot_storage.exists():
+            raise click.ClickException('.booknot already exists')
 
-        try:
-            if not os.path.isdir(booknot_directory):
-                shutil.copytree(os.path.join(RESOURCES_DIR, 'booknot_root'), os.path.join(self.directory, '.booknot'))
+        if not self.booknot_storage.is_sphinx_present():
+            questions = [
+                inquirer.Confirm('init sphinx',
+                                 message='This will create a workspace for sphinx, do you want to continue ?',
+                                 default=False),
+            ]
 
-            booknot_toctree = os.path.join(self.directory, 'index.rst')
-            if not os.path.isfile(booknot_toctree):
-                shutil.copy(os.path.join(RESOURCES_DIR, 'toctree.rst') ,booknot_toctree)
+            answers = inquirer.prompt(questions)
+            if answers['init sphinx']:
+                questions = [
+                    inquirer.Text('project',
+                                     message='What the name of the project of this booknot',
+                                     default='Booknot'),
+                    inquirer.Text('author',
+                                     message='What the name of the author',
+                                     default='me'),
+                ]
 
-        except Exception as exception:
-            if os.path.isdir(booknot_directory):
-                shutil.rmtree(booknot_directory)
+                answers = inquirer.prompt(questions)
+                self.booknot_storage.create_sphinx(answers['project'], answers['author'])
 
-            raise click.ClickException(f'invalid exception - {exception}')
+                click.echo("to render the documentation, use make html")
+                click.echo("to open the render, use open _build/html/index.html")
+                self.booknot_storage.init_store()
+        else:
+            self.booknot_storage.init_store()
+            click.echo("you can use : booknot capture https://...")
